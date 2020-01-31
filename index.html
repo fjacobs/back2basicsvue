@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping List app</title>
+</head>
+<body>
+  <div id="shopping-list">
+
+    <div class="header">
+      <h1>{{header.toLocaleUpperCase()}}</h1>
+      <button v-if="state === 'default'"> Add Item</button>
+      <button v-else > Cancel</button>
+    </div>
+
+    <div v-if="state === 'edit'">
+      <input v-model="newItem" type="text" placeholder="Add new item" @keyup.enter="saveItem">
+      <button @click="saveItem"> Save Item</button>
+    </div>
+
+    <p v-if ="items.length===0" > Nice job! you've bought all your items. </p>
+    <ul>
+        <li v-for="item in items"> {{item}} </li>
+    </ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+        el: '#shopping-list',
+        data: {
+            state: "default",
+            header: "Shopping list app",
+            newItem: "",
+            items: [
+                // '10 party hats',
+                // '2 board games',
+                // '20 cups',
+            ]
+
+        },
+        methods: {
+            saveItem: function() {
+                this.items.push(this.newItem)
+                this.newItem = ""
+            }
+        }
+    })
+  </script>
+</body>
+</html>
